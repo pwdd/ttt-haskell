@@ -1,4 +1,7 @@
 module Main where
 
+import TTT.Game.Runner
+
 main :: IO ()
-main = putStrLn "hello world"
+main = play
+

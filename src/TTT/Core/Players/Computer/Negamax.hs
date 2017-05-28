@@ -2,12 +2,11 @@ module TTT.Core.Players.Computer.Negamax ( startDepth
                                          , baseDepth
                                          , maxDepth
                                          , boardAnalysis
-                                         , getSpot
+                                         , scores
                                          ) where
 
 import Control.Parallel.Strategies as Strategy
 import Data.List
-import Data.Maybe
 
 import TTT.Core.Types
 import TTT.Core.Board as Board (availableSpots, isEmpty, placeMarker)
@@ -75,18 +74,4 @@ negamax gameContext@ GameContext { board = board
                                  }
   | Game.Status.gameOver board || depth >= maxDepth board = boardAnalysis gameContext
   | otherwise = maximum (scores gameContext)
-
-getSpot :: GameContext -> Int
-getSpot gameContext@ GameContext { board = board
-                                 , currentPlayer = currentPlayer
-                                 , opponent = opponent
-                                 , depth = depth
-                                 }
-  | Board.isEmpty board = 0
-  | otherwise = spots !! best
-  where
-    spots = Board.availableSpots board
-    scored = scores gameContext
-    maxValue = maximum scored
-    best = fromJust $ elemIndex maxValue scored
 

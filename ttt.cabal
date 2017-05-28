@@ -15,15 +15,17 @@ library
                      , TTT.Console.Game.Runner
                      , TTT.Console.IO.IO
                      , TTT.Console.IO.IOContext
+                     , TTT.Console.IO.Prompt
                      , TTT.Console.Messenger.EnglishMessenger
                      , TTT.Console.Messenger.PortugueseMessenger
                      , TTT.Console.Messenger.Validation
-                     , TTT.Console.Players.Prompt
+                     , TTT.Console.Players.User
                      , TTT.Console.Utils.Helpers
                      , TTT.Console.BoardRepresentation
                      , TTT.Console.Settings
                      , TTT.Core.Game.GameContext
                      , TTT.Core.Game.Status
+                     , TTT.Core.Players.Computer.HardComputer
                      , TTT.Core.Players.Computer.Negamax
                      , TTT.Core.Players.Player
                      , TTT.Core.Utils.Helpers
@@ -49,9 +51,10 @@ test-suite ttt-test
   hs-source-dirs:      test
   main-is:             Spec.hs
   other-modules:       TTT.Console.Game.LoopSpec
+                     , TTT.Console.IO.PromptSpec
                      , TTT.Console.BoardRepresentationSpec
-                     , TTT.Console.Players.PromptSpec
                      , TTT.Core.Game.StatusSpec
+                     , TTT.Core.Players.Computer.HardComputerSpec
                      , TTT.Core.Players.Computer.NegamaxSpec
                      , TTT.Core.Utils.HelpersSpec
                      , TTT.Core.BoardSpec

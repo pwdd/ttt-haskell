@@ -44,29 +44,3 @@ spec = do
       let context = GameContext { board = board, currentPlayer = playerO, opponent = playerX, depth = 0 }
       Negamax.boardAnalysis context `shouldBe` 0
 
-  describe "getSpot" $ do
-    it "blocks opponent from winning" $ do
-      let board = [ o, o, e
-                  , x, e, e
-                  , x, e, e
-                  ]
-      let context = GameContext { board = board, currentPlayer = playerX, opponent = playerO, depth = 0 }
-      Negamax.getSpot context `shouldBe` 2
-
-    it "wins when it has the chance" $ do
-      let board = [ o, o, e
-                  , x, x, e
-                  , e, e, e
-                  ]
-      let context = GameContext { board = board, currentPlayer = playerX, opponent = playerO, depth = 0 }
-      Negamax.getSpot context `shouldBe` 5
-
-    it "does not let opponent to create a fork" $ do
-      let board = [ x, e, e
-                  , e, o, e
-                  , e, e, o
-                  ]
-      let context = GameContext { board = board, currentPlayer = playerX, opponent = playerO, depth = 0 }
-      let result = Negamax.getSpot context
-      result `elem` [2, 6] `shouldBe` True
-

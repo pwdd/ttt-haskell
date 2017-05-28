@@ -21,7 +21,8 @@ loop ioContext@ IOContext { printer = printer, reader = reader, messenger = mess
                               , depth = depth
                               } = do
 
-  printer $ initialStateString messenger board
+  printer $ initialStateString messenger (Board.isEmpty board)
+                                         (BoardRepresentation.strBoard board)
 
   spot <- getMove ioContext gameContext
   let nextBoard = Board.placeMarker (spot :: Int) (marker currentPlayer) board
@@ -29,23 +30,15 @@ loop ioContext@ IOContext { printer = printer, reader = reader, messenger = mess
   printer $ BoardRepresentation.strBoard nextBoard
 
   if Game.Status.gameOver nextBoard
-     then printer $ finalMessage currentPlayer nextBoard messenger
+     then printer $ finalMessage messenger (marker currentPlayer)
+                                           (Game.Status.isDraw nextBoard)
+                                           (Game.Status.winningCombo nextBoard)
      else
        loop ioContext (gameContext { board = nextBoard
                                    , currentPlayer = opponent
                                    , opponent = currentPlayer
                                    , depth = depth
                                    })
-
-initialStateString :: Messenger -> Board -> String
-initialStateString messenger board
-  | Board.isEmpty board = "\n" ++ (BoardRepresentation.strBoard board)
-  | otherwise = ""
-
-finalMessage :: Player -> Board -> Messenger -> String
-finalMessage currentPlayer board messenger
-  | Game.Status.isDraw board = draw messenger
-  | otherwise = winner messenger (marker currentPlayer) (Game.Status.winningCombo board)
 
 getMove :: IOContext -> GameContext -> IO Int
 getMove ioContext@ IOContext { printer = printer

@@ -9,5 +9,7 @@ data Messenger = Messenger { chooseANumber :: Board -> String
                            , winner :: Marker -> [Int] -> String
                            , askBoardDimension :: String
                            , invalidBoardDimension :: String
+                           , initialStateString :: Bool -> String -> String
+                           , finalMessage :: Marker -> Bool -> [Int] -> String
                            }
 

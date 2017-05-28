@@ -29,3 +29,4 @@ spec =
                   ]
       BoardRepresentation.strBoard board `shouldBe`
         " x | o |   |   \n---|---|---|---\n x |   | o |   \n---|---|---|---\n   | x | x |   \n---|---|---|---\n x | x | x | x \n\n"
+

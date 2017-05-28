@@ -7,21 +7,20 @@ import TTT.Core.Messenger
 import TTT.Console.Game.Loop as Game.Loop (loop)
 import TTT.Console.IO.IO as TTT.IO (printer, reader)
 import TTT.Console.IO.IOContext as IOContext
-import TTT.Console.Players.Prompt as Prompt (getBoardDimension)
-import TTT.Console.Settings as Settings (firstPlayer, secondPlayer)
+import TTT.Console.Players.Prompt as Prompt (getBoardDimension
+                                            , getMessenger
+                                            , askMessenger
+                                            , invalidMessenger)
+import TTT.Console.Settings as Settings (firstPlayer, secondPlayer, createMessenger)
 import TTT.Console.Messenger.EnglishMessenger as EnglishMessenger
+import TTT.Console.Messenger.PortugueseMessenger as PortugueseMessenger
 
 play :: IO ()
 play = do
-  let chosenMessenger = Messenger { chooseANumber = EnglishMessenger.chooseANumber'
-                                  , invalidMove = EnglishMessenger.invalidMove'
-                                  , currentPlayerIs = EnglishMessenger.currentPlayerIs'
-                                  , draw = EnglishMessenger.draw'
-                                  , winner = EnglishMessenger.winner'
-                                  , askBoardDimension = EnglishMessenger.askBoardDimension'
-                                  , invalidBoardDimension = EnglishMessenger.invalidBoardDimension'
-                                  }
-
+  messengerNumber <- Prompt.getMessenger TTT.IO.reader
+                                         Prompt.askMessenger
+                                         Prompt.invalidMessenger
+  let chosenMessenger = Settings.createMessenger messengerNumber
   boardDimension <- Prompt.getBoardDimension TTT.IO.reader
                                              (askBoardDimension chosenMessenger)
                                              (invalidBoardDimension chosenMessenger)

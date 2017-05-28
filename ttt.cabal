@@ -16,6 +16,8 @@ library
                      , TTT.Console.IO.IO
                      , TTT.Console.IO.IOContext
                      , TTT.Console.Messenger.EnglishMessenger
+                     , TTT.Console.Messenger.PortugueseMessenger
+                     , TTT.Console.Messenger.Validation
                      , TTT.Console.Players.Prompt
                      , TTT.Console.Utils.Helpers
                      , TTT.Console.BoardRepresentation

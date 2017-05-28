@@ -10,3 +10,4 @@ isValidMove board spot = isInRange && Board.isSpotAvailable board spot
 
 isValidBoardDimension :: Int -> Bool
 isValidBoardDimension input = input == 3 || input == 4
+

@@ -2,12 +2,13 @@ module TTT.Console.Game.Loop (loop) where
 
 import TTT.Core.Types
 import TTT.Core.Game.GameContext
-import TTT.Core.Messenger
 import TTT.Core.Players.Player
 
 import TTT.Core.Board as Board (isEmpty, placeMarker)
 import TTT.Core.Game.Status as Game.Status (isDraw, gameOver, winningCombo)
 import TTT.Core.Players.Computer.HardComputer as Computer (getSpot)
+
+import TTT.Messenger.Messenger
 
 import TTT.Console.IO.IOContext
 import TTT.Console.IO.Prompt as Prompt (getSettings)

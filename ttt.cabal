@@ -16,9 +16,6 @@ library
                      , TTT.Console.IO.IO
                      , TTT.Console.IO.IOContext
                      , TTT.Console.IO.Prompt
-                     , TTT.Console.Messenger.EnglishMessenger
-                     , TTT.Console.Messenger.PortugueseMessenger
-                     , TTT.Console.Messenger.Validation
                      , TTT.Console.Players.User
                      , TTT.Console.Utils.Helpers
                      , TTT.Console.BoardRepresentation
@@ -30,10 +27,15 @@ library
                      , TTT.Core.Players.Player
                      , TTT.Core.Utils.Helpers
                      , TTT.Core.Board
-                     , TTT.Core.Messenger
                      , TTT.Core.Types
                      , TTT.Core.Validation
+                     , TTT.Messenger.EnglishMessenger
+                     , TTT.Messenger.Messenger
+                     , TTT.Messenger.PortugueseMessenger
+                     , TTT.Messenger.Validation
+                     , TTT.Messenger.Utils.Helpers
   build-depends:       base >= 4.7 && < 5
+                     , containers
                      , parallel
                      , vector
   default-language:    Haskell2010

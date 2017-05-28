@@ -1,9 +1,4 @@
-module TTT.Console.Utils.Helpers (markerToStr, isNumber) where
-
-import TTT.Core.Types
-
-markerToStr :: Marker -> String
-markerToStr marker = " " ++ [marker]  ++ " "
+module TTT.Console.Utils.Helpers (isNumber) where
 
 isNumber :: String -> Bool
 isNumber input =

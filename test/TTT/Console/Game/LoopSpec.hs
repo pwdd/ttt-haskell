@@ -7,11 +7,11 @@ import TTT.Core.Types
 
 import TTT.Core.Board as Board (newBoard)
 import TTT.Core.Game.GameContext
-import TTT.Core.Messenger
 import TTT.Core.Players.Player
 
 import TTT.Console.Game.Loop as Game.Loop
 import TTT.Console.IO.IOContext
+import TTT.Messenger.Messenger
 
 main :: IO ()
 main = hspec spec
@@ -32,6 +32,8 @@ fakeMessenger = Messenger { chooseANumber = (\fakeBoard -> "")
                           , winner = fakeWinner
                           , askBoardDimension = ""
                           , invalidBoardDimension = ""
+                          , initialStateString = (\a b -> "")
+                          , finalMessage = (\a b c -> "")
                           }
 
 indices = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]

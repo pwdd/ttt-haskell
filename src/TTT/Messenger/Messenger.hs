@@ -1,4 +1,4 @@
-module TTT.Core.Messenger (Messenger(..)) where
+module TTT.Messenger.Messenger (Messenger(..)) where
 
 import TTT.Core.Types
 

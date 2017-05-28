@@ -9,7 +9,7 @@ import TTT.Console.Utils.Helpers as Helpers (isNumber)
 getSpot :: IO String -> (String -> IO ()) -> String -> String -> Board -> IO Int
 getSpot reader printer askMessage warnMessage board = do
   input <- Prompt.getInput reader printer askMessage
-  if Helpers.isNumber input && Validation.isValidMove board (read input - 1)
+  if Helpers.isNumber input && Validation.isValidMove board (inputToNumber input)
      then return (inputToNumber input)
      else do
        printer warnMessage

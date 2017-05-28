@@ -5,7 +5,7 @@ import Data.List
 import TTT.Core.Types
 import TTT.Core.Board as Board
 import TTT.Core.Utils.Helpers as Core.Helpers (chunks)
-import TTT.Console.Utils.Helpers as Console.Helpers (markerToStr)
+import TTT.Messenger.Utils.Helpers as Messenger.Helpers (markerToStr)
 
 posToStr :: [Int] -> String
 posToStr indices = show (map succ indices) :: String
@@ -17,7 +17,7 @@ strBoard :: Board -> String
 strBoard board = addSeparator (addPipe $ chunked board) where
 
   chunked board = Core.Helpers.chunks (Board.dimension board) $
-    Console.Helpers.markerToStr <$> board
+    Messenger.Helpers.markerToStr <$> board
 
   addPipe = map $ intercalate "|"
 

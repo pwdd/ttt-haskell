@@ -1,19 +1,19 @@
-module TTT.Console.Messenger.PortugueseMessenger ( chooseANumber'
-                                                 , invalidMove'
-                                                 , currentPlayerIs'
-                                                 , draw'
-                                                 , winner'
-                                                 , askBoardDimension'
-                                                 , invalidBoardDimension'
-                                                 , initialStateString'
-                                                 , finalMessage'
-                                                 ) where
+module TTT.Messenger.PortugueseMessenger ( chooseANumber'
+                                         , invalidMove'
+                                         , currentPlayerIs'
+                                         , draw'
+                                         , winner'
+                                         , askBoardDimension'
+                                         , invalidBoardDimension'
+                                         , initialStateString'
+                                         , finalMessage'
+                                         ) where
 
 import Data.List as List
 
 import TTT.Core.Types
 
-import TTT.Console.Utils.Helpers as Console.Helpers (markerToStr)
+import TTT.Messenger.Utils.Helpers as Console.Helpers (markerToStr)
 
 chooseANumber' :: Board -> String
 chooseANumber' board = "\nEntre um número de 1 a " ++ show (length board)  ++ ":\n"

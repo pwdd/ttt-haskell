@@ -1,17 +1,27 @@
 module TTT.Console.Players.Prompt ( getInput
                                   , getSpot
+                                  , getBoardDimension
                                   , isNumber
                                   ) where
 
 import TTT.Core.Types
 
 import TTT.Console.IO.IO as TTT.IO (printer)
-import TTT.Core.Validation as Validation (isValidMove)
+import TTT.Core.Validation as Validation (isValidMove, isValidBoardDimension)
 
 getInput :: IO String -> String -> IO String
 getInput reader message = do
   TTT.IO.printer message
   reader
+
+getBoardDimension :: IO String -> String -> String -> IO Int
+getBoardDimension reader askMessage warnMessage = do
+  input <- getInput reader askMessage
+  if isNumber input && Validation.isValidBoardDimension (read input :: Int)
+     then return (read input :: Int)
+      else do
+        printer warnMessage
+        getBoardDimension reader askMessage warnMessage
 
 getSpot :: IO String -> String -> String -> Board -> IO Int
 getSpot reader askMessage warnMessage board = do

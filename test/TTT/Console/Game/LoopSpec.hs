@@ -25,18 +25,22 @@ fakeWinner m i = ""
 fakeStrBoard :: Board -> String
 fakeStrBoard b = ""
 
-fakeMessenger = Messenger { chooseANumber = ""
+fakeMessenger = Messenger { chooseANumber = (\fakeBoard -> "")
                           , invalidMove = ""
                           , currentPlayerIs = fakeCurrentPlayerMessage
                           , draw = ""
                           , winner = fakeWinner
-                          , strBoard = fakeStrBoard
+                          , askBoardDimension = ""
+                          , invalidBoardDimension = ""
                           }
 
 indices = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 mockReader :: IO String
 mockReader = (generate . elements) indices
+
+mockPrinter :: String -> IO ()
+mockPrinter s = return ()
 
 testBoard = Board.newBoard 9
 testCurrentPlayer = Player { marker = 'x', isAI = False }
@@ -55,7 +59,7 @@ testHumanXComputerContext = GameContext { board = testBoard
                                         , depth = 0
                                         }
 
-mockIOContext = IOContext { printer = putStr
+mockIOContext = IOContext { printer = mockPrinter
                           , reader = mockReader
                           , messenger = fakeMessenger
                           }

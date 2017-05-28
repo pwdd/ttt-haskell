@@ -11,6 +11,7 @@ import TTT.Core.Players.Computer.Negamax as Negamax (getSpot)
 
 import TTT.Console.IO.IOContext
 import TTT.Console.Players.Prompt as Prompt (getSpot)
+import TTT.Console.BoardRepresentation as BoardRepresentation (strBoard)
 
 loop :: IOContext -> GameContext -> IO ()
 loop ioContext@ IOContext { printer = printer, reader = reader, messenger = messenger }
@@ -25,7 +26,7 @@ loop ioContext@ IOContext { printer = printer, reader = reader, messenger = mess
   spot <- getMove ioContext gameContext
   let nextBoard = Board.placeMarker (spot :: Int) (marker currentPlayer) board
 
-  printer $ strBoard messenger nextBoard
+  printer $ BoardRepresentation.strBoard nextBoard
 
   if Game.Status.gameOver nextBoard
      then printer $ finalMessage currentPlayer nextBoard messenger
@@ -38,7 +39,7 @@ loop ioContext@ IOContext { printer = printer, reader = reader, messenger = mess
 
 initialStateString :: Messenger -> Board -> String
 initialStateString messenger board
-  | Board.isEmpty board = "\n" ++ (strBoard messenger board)
+  | Board.isEmpty board = "\n" ++ (BoardRepresentation.strBoard board)
   | otherwise = ""
 
 finalMessage :: Player -> Board -> Messenger -> String
@@ -58,7 +59,7 @@ getMove ioContext@ IOContext { printer = printer
                                  }
 
   | not (isAI currentPlayer) = Prompt.getSpot reader
-                                              (chooseANumber messenger)
+                                              (chooseANumber messenger board)
                                               (invalidMove messenger)
                                               board
   | otherwise = return $ Negamax.getSpot gameContext

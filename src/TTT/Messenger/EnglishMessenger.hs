@@ -38,7 +38,7 @@ winner' marker indices =
 askBoardDimension' = "\nEnter the dimension of the board: \n3 - for 3x3\n4 - for 4x4\n"
 invalidBoardDimension' = "\nBoard dimension not available\n"
 
-roleOptions = "\n1 - Human\n2 - Unbeatable Computer"
+roleOptions = "\n1 - Human\n2 - Unbeatable Computer\n"
 
 askFirstPlayerRole' = "\nIs the first player:" ++ roleOptions
 askSecondPlayerRole' = "\nIs the second player:" ++ roleOptions

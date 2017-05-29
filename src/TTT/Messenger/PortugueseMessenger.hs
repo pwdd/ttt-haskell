@@ -41,7 +41,7 @@ invalidBoardDimension' = "\nNão existe tabuleiro nesse tamanho\n"
 roleOptions = "\n1 - Humano\n2 - Computador Imbatível\n"
 
 askFirstPlayerRole' = "\nO primeiro jogador é:" ++ roleOptions
-askSecondPlayerRole' = "\nO segundo jogador é:"
+askSecondPlayerRole' = "\nO segundo jogador é:" ++ roleOptions
 invalidPlayerRole' = "\nEsse tipo de jogador não está disponível\n"
 
 initialStateString' :: Bool -> String -> String

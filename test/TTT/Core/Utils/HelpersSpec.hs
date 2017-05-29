@@ -17,3 +17,4 @@ spec =
 
     it "is the original list if list is smaller than chunk size" $
       Helpers.chunks 4 [0..2] `shouldBe` [[0, 1, 2]]
+

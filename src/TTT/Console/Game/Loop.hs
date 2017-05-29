@@ -23,8 +23,7 @@ loop ioContext@ IOContext { printer = printer, reader = reader, messenger = mess
                               , depth = depth
                               } = do
 
-  printer $ initialStateString messenger (Board.isEmpty board)
-                                         (BoardRepresentation.strBoard board)
+  firstEmptyBoard printer currentPlayer messenger board
 
   spot <- getMove ioContext gameContext
   let nextBoard = Board.placeMarker (spot :: Int) (marker currentPlayer) board
@@ -41,6 +40,12 @@ loop ioContext@ IOContext { printer = printer, reader = reader, messenger = mess
                                    , opponent = currentPlayer
                                    , depth = depth
                                    })
+
+firstEmptyBoard :: (String -> IO ()) -> Player -> Messenger -> Board -> IO ()
+firstEmptyBoard printer currentPlayer messenger board
+  | isAI currentPlayer = printer "\n"
+  | otherwise = printer $ initialStateString messenger (Board.isEmpty board)
+                                                       (BoardRepresentation.strBoard board)
 
 getMove :: IOContext -> GameContext -> IO Int
 getMove ioContext@ IOContext { printer = printer

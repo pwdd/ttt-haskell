@@ -5,6 +5,9 @@ module TTT.Messenger.EnglishMessenger ( chooseANumber'
                                       , winner'
                                       , askBoardDimension'
                                       , invalidBoardDimension'
+                                      , askFirstPlayerRole'
+                                      , askSecondPlayerRole'
+                                      , invalidPlayerRole'
                                       , initialStateString'
                                       , finalMessage'
                                       ) where
@@ -34,6 +37,12 @@ winner' marker indices =
 
 askBoardDimension' = "\nEnter the dimension of the board: \n3 - for 3x3\n4 - for 4x4\n"
 invalidBoardDimension' = "\nBoard dimension not available\n"
+
+roleOptions = "\n1 - Human\n2 - Unbeatable Computer"
+
+askFirstPlayerRole' = "\nIs the first player:" ++ roleOptions
+askSecondPlayerRole' = "\nIs the second player:" ++ roleOptions
+invalidPlayerRole' = "\nThis type of player is not available.\n"
 
 initialStateString' :: Bool -> String -> String
 initialStateString' isEmpty strBoard

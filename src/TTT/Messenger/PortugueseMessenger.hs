@@ -5,6 +5,9 @@ module TTT.Messenger.PortugueseMessenger ( chooseANumber'
                                          , winner'
                                          , askBoardDimension'
                                          , invalidBoardDimension'
+                                         , askFirstPlayerRole'
+                                         , askSecondPlayerRole'
+                                         , invalidPlayerRole'
                                          , initialStateString'
                                          , finalMessage'
                                          ) where
@@ -34,6 +37,12 @@ winner' marker indices =
 
 askBoardDimension' = "\nDigite a dimensão do tabuleiro: \n3 - for 3x3\n4 - for 4x4\n"
 invalidBoardDimension' = "\nNão existe tabuleiro nesse tamanho\n"
+
+roleOptions = "\n1 - Humano\n2 - Computador Imbatível\n"
+
+askFirstPlayerRole' = "\nO primeiro jogador é:" ++ roleOptions
+askSecondPlayerRole' = "\nO segundo jogador é:"
+invalidPlayerRole' = "\nEsse tipo de jogador não está disponível\n"
 
 initialStateString' :: Bool -> String -> String
 initialStateString' isEmpty strBoard

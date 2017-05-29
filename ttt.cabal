@@ -54,6 +54,8 @@ test-suite ttt-test
   main-is:             Spec.hs
   other-modules:       TTT.Console.Game.LoopSpec
                      , TTT.Console.IO.PromptSpec
+                     , TTT.Console.Players.UserSpec
+                     , TTT.Console.Utils.HelpersSpec
                      , TTT.Console.BoardRepresentationSpec
                      , TTT.Core.Game.StatusSpec
                      , TTT.Core.Players.Computer.HardComputerSpec
@@ -61,7 +63,9 @@ test-suite ttt-test
                      , TTT.Core.Utils.HelpersSpec
                      , TTT.Core.BoardSpec
                      , TTT.Core.ValidationSpec
+                     , TTT.Messenger.ValidationSpec
   build-depends:       base
+                     , containers
                      , ttt
                      , hspec
                      , random

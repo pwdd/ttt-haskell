@@ -11,10 +11,10 @@ getSpot reader printer askMessage warnMessage board = do
   input <- Prompt.getInput reader printer askMessage
   if Helpers.isNumber input && Validation.isValidMove board (inputToNumber input)
      then return (inputToNumber input)
-     else do
-       printer warnMessage
+     else
+       printer warnMessage >>
        getSpot reader printer askMessage warnMessage board
 
-inputToNumber :: (Num a, Read a) => String -> a
-inputToNumber input = read input -1
+inputToNumber :: String -> Int
+inputToNumber input = read input - 1
 

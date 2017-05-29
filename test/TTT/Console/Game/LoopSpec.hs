@@ -32,8 +32,11 @@ fakeMessenger = Messenger { chooseANumber = (\fakeBoard -> "")
                           , winner = fakeWinner
                           , askBoardDimension = ""
                           , invalidBoardDimension = ""
-                          , initialStateString = (\a b -> "")
-                          , finalMessage = (\a b c -> "")
+                          , askFirstPlayerRole = ""
+                          , askSecondPlayerRole = ""
+                          , invalidPlayerRole = ""
+                          , initialStateString = \a b -> ""
+                          , finalMessage = \a b c -> ""
                           }
 
 indices = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]

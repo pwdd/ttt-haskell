@@ -53,7 +53,7 @@ parallelsearch nextBoards opponent currentPlayer depth =
     (\board -> negamax GameContext { board = board
                                    , currentPlayer = opponent
                                    , opponent = currentPlayer
-                                   , depth = (succ depth)
+                                   , depth = succ depth
                                    }) nextBoards
 
 scores :: GameContext -> [Int]

@@ -5,6 +5,9 @@ module TTT.Messenger.EnglishMessenger ( chooseANumber'
                                       , winner'
                                       , askBoardDimension'
                                       , invalidBoardDimension'
+                                      , askFirstPlayerMarker'
+                                      , askSecondPlayerMarker'
+                                      , invalidPlayerMarker'
                                       , askFirstPlayerRole'
                                       , askSecondPlayerRole'
                                       , invalidPlayerRole'
@@ -43,6 +46,10 @@ roleOptions = "\n1 - Human\n2 - Unbeatable Computer\n"
 askFirstPlayerRole' = "\nIs the first player:" ++ roleOptions
 askSecondPlayerRole' = "\nIs the second player:" ++ roleOptions
 invalidPlayerRole' = "\nThis type of player is not available.\n"
+
+askFirstPlayerMarker' = "\nEnter the letter that will represent the first player: \n"
+askSecondPlayerMarker' = "\nEnter the letter that will represent the second player: \n"
+invalidPlayerMarker' = "\nYour choice is not valid\n"
 
 initialStateString' :: Bool -> String -> String
 initialStateString' isEmpty strBoard

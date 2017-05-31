@@ -17,6 +17,7 @@ library
                      , TTT.Console.IO.IOContext
                      , TTT.Console.IO.Prompt
                      , TTT.Console.Players.User
+                     , TTT.Console.Players.Validation
                      , TTT.Console.Utils.Helpers
                      , TTT.Console.BoardRepresentation
                      , TTT.Console.Settings
@@ -55,6 +56,7 @@ test-suite ttt-test
   other-modules:       TTT.Console.Game.LoopSpec
                      , TTT.Console.IO.PromptSpec
                      , TTT.Console.Players.UserSpec
+                     , TTT.Console.Players.ValidationSpec
                      , TTT.Console.Utils.HelpersSpec
                      , TTT.Console.BoardRepresentationSpec
                      , TTT.Core.Game.StatusSpec

@@ -1,6 +1,8 @@
 module TTT.Console.Settings ( getMessengerNumber
                             , createMessenger
                             , getBoardDimension
+                            , getFirstPlayerMarker
+                            , getSecondPlayerMarker
                             , getFirstPlayerRole
                             , getSecondPlayerRole
                             , createPlayer
@@ -23,7 +25,11 @@ import TTT.Messenger.EnglishMessenger as EnglishMessenger
 import TTT.Messenger.PortugueseMessenger as PortugueseMessenger
 import TTT.Messenger.Validation as Messenger.Validation
 import TTT.Console.IO.IO as TTT.IO (printer, reader)
-import TTT.Console.IO.Prompt as Prompt (getSettings, getSettingsFromOptions)
+import TTT.Console.Players.Validation as Console.Players.Validation (isValidMarker)
+import TTT.Console.IO.Prompt as Prompt ( getSettings
+                                       , getSettingsFromOptions
+                                       , getMarker
+                                       )
 
 askMessenger = "\nEnter 1 for English\nDigite 2 para Português\n"
 invalidMessenger = ""
@@ -51,6 +57,25 @@ getBoardDimension messenger = Prompt.getSettings TTT.IO.reader
                                                  (askBoardDimension messenger)
                                                  (invalidBoardDimension messenger)
                                                  Core.Validation.isValidBoardDimension
+
+getFirstPlayerMarker :: Messenger -> Marker -> IO Marker
+getFirstPlayerMarker messenger =
+  getPlayerMarker (askFirstPlayerMarker messenger)
+                  (invalidPlayerMarker messenger)
+
+getSecondPlayerMarker :: Messenger -> Marker -> IO Marker
+getSecondPlayerMarker messenger =
+  getPlayerMarker (askSecondPlayerMarker messenger)
+                  (invalidPlayerMarker messenger)
+
+getPlayerMarker :: String -> String -> Marker -> IO Marker
+getPlayerMarker askMessage warnMessage =
+  Prompt.getMarker TTT.IO.reader
+                   TTT.IO.printer
+                   askMessage
+                   warnMessage
+                   Console.Players.Validation.isValidMarker
+
 
 getPlayerRole :: Messenger -> String -> String -> IO Int
 getPlayerRole messenger askMessage warnMessage =
@@ -84,6 +109,9 @@ englishMessenger = Messenger { chooseANumber = EnglishMessenger.chooseANumber'
                              , winner = EnglishMessenger.winner'
                              , askBoardDimension = EnglishMessenger.askBoardDimension'
                              , invalidBoardDimension = EnglishMessenger.invalidBoardDimension'
+                             , askFirstPlayerMarker = EnglishMessenger.askFirstPlayerMarker'
+                             , askSecondPlayerMarker = EnglishMessenger.askSecondPlayerMarker'
+                             , invalidPlayerMarker = EnglishMessenger.invalidPlayerMarker'
                              , askFirstPlayerRole = EnglishMessenger.askFirstPlayerRole'
                              , askSecondPlayerRole = EnglishMessenger.askSecondPlayerRole'
                              , invalidPlayerRole = EnglishMessenger.invalidPlayerRole'
@@ -100,6 +128,9 @@ portugueseMessenger = Messenger { chooseANumber = PortugueseMessenger.chooseANum
                                 , invalidBoardDimension = PortugueseMessenger.invalidBoardDimension'
                                 , askFirstPlayerRole = PortugueseMessenger.askFirstPlayerRole'
                                 , askSecondPlayerRole = PortugueseMessenger.askSecondPlayerRole'
+                                , askFirstPlayerMarker = PortugueseMessenger.askFirstPlayerMarker'
+                                , askSecondPlayerMarker = PortugueseMessenger.askSecondPlayerMarker'
+                                , invalidPlayerMarker = PortugueseMessenger.invalidPlayerMarker'
                                 , invalidPlayerRole = PortugueseMessenger.invalidPlayerRole'
                                 , initialStateString = PortugueseMessenger.initialStateString'
                                 , finalMessage = PortugueseMessenger.finalMessage'

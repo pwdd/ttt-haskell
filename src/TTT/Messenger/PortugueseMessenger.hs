@@ -5,6 +5,9 @@ module TTT.Messenger.PortugueseMessenger ( chooseANumber'
                                          , winner'
                                          , askBoardDimension'
                                          , invalidBoardDimension'
+                                         , askFirstPlayerMarker'
+                                         , askSecondPlayerMarker'
+                                         , invalidPlayerMarker'
                                          , askFirstPlayerRole'
                                          , askSecondPlayerRole'
                                          , invalidPlayerRole'
@@ -43,6 +46,10 @@ roleOptions = "\n1 - Humano\n2 - Computador Imbatível\n"
 askFirstPlayerRole' = "\nO primeiro jogador é:" ++ roleOptions
 askSecondPlayerRole' = "\nO segundo jogador é:" ++ roleOptions
 invalidPlayerRole' = "\nEsse tipo de jogador não está disponível\n"
+
+askFirstPlayerMarker' = "\nDigite a letra que vai servir the símbolo do primeiro jogador: \n"
+askSecondPlayerMarker' = "\nDigite a letra que vai servir the símbolo do segundo jogador: \n"
+invalidPlayerMarker' = "\nSua escolha não é válida\n"
 
 initialStateString' :: Bool -> String -> String
 initialStateString' isEmpty strBoard

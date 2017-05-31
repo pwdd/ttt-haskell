@@ -1,6 +1,7 @@
 module TTT.Console.IO.Prompt ( getInput
                              , getSettings
                              , getSettingsFromOptions
+                             , getMarker
                              ) where
 
 import System.IO
@@ -10,7 +11,7 @@ import TTT.Core.Types
 
 import TTT.Console.Utils.Helpers as Helpers (isNumber)
 
-getInput :: IO String -> (String -> IO ()) -> String -> IO String
+getInput :: IO a -> (String -> IO ()) -> String -> IO a
 getInput reader printer message = do
   printer message
   hFlush stdout
@@ -40,4 +41,19 @@ getSettingsFromOptions reader printer askMessage warnMessage validation messenge
       else do
         printer warnMessage
         getSettingsFromOptions reader printer askMessage warnMessage validation messengerOptions
+
+getMarker :: IO String ->
+  (String -> IO ()) ->
+    String ->
+      String ->
+        (Marker -> Marker -> Bool) ->
+          Marker ->
+            IO Marker
+getMarker reader printer askMessage warnMessage validation opponentMarker = do
+  input <- getInput reader printer askMessage
+  if (length input == 1) && validation (head input :: Char)  opponentMarker
+     then return (head input :: Char)
+      else do
+        printer warnMessage
+        getMarker reader printer askMessage warnMessage validation opponentMarker
 

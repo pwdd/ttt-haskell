@@ -24,5 +24,5 @@ isValidBoardDimension :: Int -> Bool
 isValidBoardDimension input = input == 3 || input == 4
 
 isValidPlayerRole :: Int -> Map.Map String Int -> Bool
-isValidPlayerRole input options = isValid input options
+isValidPlayerRole = isValid
 

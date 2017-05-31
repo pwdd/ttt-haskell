@@ -9,6 +9,8 @@ import TTT.Console.IO.IOContext as IOContext
 import TTT.Console.Settings as Settings ( getMessengerNumber
                                         , createMessenger
                                         , getBoardDimension
+                                        , getFirstPlayerMarker
+                                        , getSecondPlayerMarker
                                         , getFirstPlayerRole
                                         , getSecondPlayerRole
                                         , createPlayer
@@ -20,10 +22,12 @@ play = do
   let chosenMessenger = Settings.createMessenger messengerNumber
   boardDimension <- Settings.getBoardDimension chosenMessenger
   let initialBoard = Board.newBoard (boardDimension * boardDimension)
+  firstPlayerMarker <- Settings.getFirstPlayerMarker chosenMessenger ' '
   firstPlayerRole <- Settings.getFirstPlayerRole chosenMessenger
+  secondPlayerMarker <- Settings.getSecondPlayerMarker chosenMessenger firstPlayerMarker
   secondPlayerRole <- Settings.getSecondPlayerRole chosenMessenger
-  let firstPlayer = Settings.createPlayer 'x' firstPlayerRole
-  let secondPlayer = Settings.createPlayer 'o' secondPlayerRole
+  let firstPlayer = Settings.createPlayer firstPlayerMarker firstPlayerRole
+  let secondPlayer = Settings.createPlayer secondPlayerMarker secondPlayerRole
   let initialContext = GameContext { board = initialBoard
                                    , currentPlayer = firstPlayer
                                    , opponent = secondPlayer

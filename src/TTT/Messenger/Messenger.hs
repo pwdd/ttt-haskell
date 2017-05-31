@@ -9,6 +9,9 @@ data Messenger = Messenger { chooseANumber :: Board -> String
                            , winner :: Marker -> [Int] -> String
                            , askBoardDimension :: String
                            , invalidBoardDimension :: String
+                           , askFirstPlayerMarker :: String
+                           , askSecondPlayerMarker :: String
+                           , invalidPlayerMarker :: String
                            , askFirstPlayerRole :: String
                            , askSecondPlayerRole :: String
                            , invalidPlayerRole :: String

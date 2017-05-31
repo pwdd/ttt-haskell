@@ -32,6 +32,9 @@ fakeMessenger = Messenger { chooseANumber = (\fakeBoard -> "")
                           , winner = fakeWinner
                           , askBoardDimension = ""
                           , invalidBoardDimension = ""
+                          , askFirstPlayerMarker = ""
+                          , askSecondPlayerMarker = ""
+                          , invalidPlayerMarker = ""
                           , askFirstPlayerRole = ""
                           , askSecondPlayerRole = ""
                           , invalidPlayerRole = ""

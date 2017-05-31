@@ -9,7 +9,7 @@ main :: IO ()
 main = hspec spec
 
 spec :: Spec
-spec = do
+spec =
 
   describe "isValidMessenger" $ do
     let fakeMessengers = Map.fromList [("LanguageOne", 1), ("LanguageTwo", 2), ("LanguageThree", 3)]

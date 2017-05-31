@@ -6,8 +6,6 @@ module TTT.Console.Settings ( getMessengerNumber
                             , getFirstPlayerRole
                             , getSecondPlayerRole
                             , createPlayer
-                            , firstPlayer
-                            , secondPlayer
                             , englishMessenger
                             , portugueseMessenger
                             ) where
@@ -24,7 +22,8 @@ import TTT.Messenger.Messenger
 import TTT.Messenger.EnglishMessenger as EnglishMessenger
 import TTT.Messenger.PortugueseMessenger as PortugueseMessenger
 import TTT.Messenger.Validation as Messenger.Validation
-import TTT.Console.IO.IO as TTT.IO (printer, reader)
+import TTT.Console.IO.IOContext
+import qualified TTT.Console.IO.IO as TTT.IO (printer, reader, clearScreen)
 import TTT.Console.Players.Validation as Console.Players.Validation (isValidMarker)
 import TTT.Console.IO.Prompt as Prompt ( getSettings
                                        , getSettingsFromOptions
@@ -76,6 +75,13 @@ getPlayerMarker askMessage warnMessage =
                    warnMessage
                    Console.Players.Validation.isValidMarker
 
+getFirstPlayerRole :: Messenger -> IO Int
+getFirstPlayerRole messenger =
+  getPlayerRole messenger (askFirstPlayerRole messenger) (invalidPlayerRole messenger)
+
+getSecondPlayerRole :: Messenger -> IO Int
+getSecondPlayerRole messenger =
+  getPlayerRole messenger (askSecondPlayerRole messenger) (invalidPlayerRole messenger)
 
 getPlayerRole :: Messenger -> String -> String -> IO Int
 getPlayerRole messenger askMessage warnMessage =
@@ -86,25 +92,13 @@ getPlayerRole messenger askMessage warnMessage =
                                 Core.Validation.isValidPlayerRole
                                 Core.Validation.playerRoleOptions
 
-getFirstPlayerRole :: Messenger -> IO Int
-getFirstPlayerRole messenger =
-  getPlayerRole messenger (askFirstPlayerRole messenger) (invalidPlayerRole messenger)
-
-getSecondPlayerRole :: Messenger -> IO Int
-getSecondPlayerRole messenger =
-  getPlayerRole messenger (askSecondPlayerRole messenger) (invalidPlayerRole messenger)
-
 createPlayer :: Marker -> Int -> Player
 createPlayer marker role =
   Player { marker = marker, isAI = defineAI role }
     where defineAI role = role == Core.Validation.playerRoleOptions Map.! "Computer"
 
-firstPlayer = Player { marker = 'x', isAI = False }
-secondPlayer = Player { marker = 'o', isAI = True }
-
 englishMessenger = Messenger { chooseANumber = EnglishMessenger.chooseANumber'
                              , invalidMove = EnglishMessenger.invalidMove'
-                             , currentPlayerIs = EnglishMessenger.currentPlayerIs'
                              , draw = EnglishMessenger.draw'
                              , winner = EnglishMessenger.winner'
                              , askBoardDimension = EnglishMessenger.askBoardDimension'
@@ -117,11 +111,11 @@ englishMessenger = Messenger { chooseANumber = EnglishMessenger.chooseANumber'
                              , invalidPlayerRole = EnglishMessenger.invalidPlayerRole'
                              , initialStateString = EnglishMessenger.initialStateString'
                              , finalMessage = EnglishMessenger.finalMessage'
+                             , movedTo = EnglishMessenger.movedTo'
                              }
 
 portugueseMessenger = Messenger { chooseANumber = PortugueseMessenger.chooseANumber'
                                 , invalidMove = PortugueseMessenger.invalidMove'
-                                , currentPlayerIs = PortugueseMessenger.currentPlayerIs'
                                 , draw = PortugueseMessenger.draw'
                                 , winner = PortugueseMessenger.winner'
                                 , askBoardDimension = PortugueseMessenger.askBoardDimension'
@@ -134,5 +128,6 @@ portugueseMessenger = Messenger { chooseANumber = PortugueseMessenger.chooseANum
                                 , invalidPlayerRole = PortugueseMessenger.invalidPlayerRole'
                                 , initialStateString = PortugueseMessenger.initialStateString'
                                 , finalMessage = PortugueseMessenger.finalMessage'
+                                , movedTo = PortugueseMessenger.movedTo'
                                 }
 

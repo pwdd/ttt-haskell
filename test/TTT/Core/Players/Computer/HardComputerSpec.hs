@@ -3,7 +3,7 @@ module TTT.Core.Players.Computer.HardComputerSpec where
 import Test.Hspec
 
 import TTT.Core.Game.GameContext
-import TTT.Core.Board as Board (emptySpot)
+import TTT.Core.Board as Board (emptySpot, newBoard)
 import TTT.Core.Players.Player
 import TTT.Core.Players.Computer.Negamax as Negamax (startDepth)
 import TTT.Core.Players.Computer.HardComputer as Computer
@@ -45,4 +45,14 @@ spec = do
       let context = GameContext { board = board, currentPlayer = playerX, opponent = playerO, depth = 0 }
       let result = Computer.getSpot context
       result `elem` [2, 6] `shouldBe` True
+
+    it "places a marker in the middle if computer starts the game in a 3x3 board" $ do
+      let board = Board.newBoard 9
+      let context = GameContext { board = board, currentPlayer = playerX, opponent = playerO, depth = 0 }
+      Computer.getSpot context `shouldBe` 4
+
+    it "places a marker close to the middle if computer starts the game in a 4x4 board" $ do
+      let board = Board.newBoard 16
+      let context = GameContext { board = board, currentPlayer = playerX, opponent = playerO, depth = 0 }
+      Computer.getSpot context `shouldBe` 6
 

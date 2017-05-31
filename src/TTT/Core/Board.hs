@@ -9,6 +9,7 @@ module TTT.Core.Board ( emptySpot
                       , rows
                       , columns
                       , diagonals
+                      , center
                       ) where
 
 import Data.List as List
@@ -66,4 +67,10 @@ diagonals boardDimension =
     where
     makeDiagonal diagonalIndices =
       map (getNestedIndex $ rows boardDimension) $ zip (indices boardDimension) diagonalIndices
+
+center :: Int -> Int
+center boardLength
+  | odd boardLength = halfLength
+  | otherwise = halfLength - 2
+  where halfLength = floor $ fromIntegral boardLength / 2
 

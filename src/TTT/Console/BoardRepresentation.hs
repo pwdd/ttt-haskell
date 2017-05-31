@@ -8,7 +8,7 @@ import TTT.Core.Utils.Helpers as Core.Helpers (chunks)
 import TTT.Messenger.Utils.Helpers as Messenger.Helpers (markerToStr)
 
 posToStr :: [Int] -> String
-posToStr indices = show (map succ indices) :: String
+posToStr indices = show (succ <$> indices) :: String
 
 makeRowSeparator :: Int -> String
 makeRowSeparator boardDimension = "\n" ++ intercalate "|" (replicate boardDimension "---") ++"\n"
@@ -24,3 +24,4 @@ strBoard board = addSeparator (addPipe $ chunked board) where
   addSeparator piped = do
     let separator = makeRowSeparator $ Board.dimension board
     intercalate separator piped ++ "\n\n"
+

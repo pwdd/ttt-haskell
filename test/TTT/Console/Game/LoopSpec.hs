@@ -25,9 +25,8 @@ fakeWinner m i = ""
 fakeStrBoard :: Board -> String
 fakeStrBoard b = ""
 
-fakeMessenger = Messenger { chooseANumber = (\fakeBoard -> "")
+fakeMessenger = Messenger { chooseANumber = \fakeBoard -> ""
                           , invalidMove = ""
-                          , currentPlayerIs = fakeCurrentPlayerMessage
                           , draw = ""
                           , winner = fakeWinner
                           , askBoardDimension = ""
@@ -40,6 +39,7 @@ fakeMessenger = Messenger { chooseANumber = (\fakeBoard -> "")
                           , invalidPlayerRole = ""
                           , initialStateString = \a b -> ""
                           , finalMessage = \a b c -> ""
+                          , movedTo = \a b -> ""
                           }
 
 indices = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -67,8 +67,12 @@ testHumanXComputerContext = GameContext { board = testBoard
                                         , depth = 0
                                         }
 
+mockClear :: Int -> IO ()
+mockClear a = return ()
+
 mockIOContext = IOContext { printer = mockPrinter
                           , reader = mockReader
+                          , clear = mockClear
                           , messenger = fakeMessenger
                           }
 spec :: Spec

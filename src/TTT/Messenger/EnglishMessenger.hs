@@ -1,6 +1,5 @@
 module TTT.Messenger.EnglishMessenger ( chooseANumber'
                                       , invalidMove'
-                                      , currentPlayerIs'
                                       , draw'
                                       , winner'
                                       , askBoardDimension'
@@ -13,6 +12,7 @@ module TTT.Messenger.EnglishMessenger ( chooseANumber'
                                       , invalidPlayerRole'
                                       , initialStateString'
                                       , finalMessage'
+                                      , movedTo'
                                       ) where
 
 import Data.List as List
@@ -24,10 +24,7 @@ import TTT.Messenger.Utils.Helpers as Console.Helpers (markerToStr)
 chooseANumber' :: Board -> String
 chooseANumber' board = "\nPlease enter a number from 1 to " ++ show (length board)  ++ ":\n"
 
-invalidMove' = "\nYour choice is not valid. \n"
-
-currentPlayerIs' :: Marker -> String
-currentPlayerIs' marker = "\nCurrent player is '" ++ [marker] ++ "'\n"
+invalidMove' = "\nYour choice is not valid. \n\n"
 
 draw' = "\nThe game tied\n"
 
@@ -60,4 +57,7 @@ finalMessage' :: Marker -> Bool -> [Int] -> String
 finalMessage' currentPlayerMarker isDraw winningCombo
   | isDraw = draw'
   | otherwise = winner' currentPlayerMarker winningCombo
+
+movedTo' :: Marker -> Int -> String
+movedTo' marker spot = "Player " ++ [marker] ++ " moved to " ++ show (spot + 1) ++ "\n\n"
 

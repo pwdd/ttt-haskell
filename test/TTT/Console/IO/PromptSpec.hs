@@ -10,8 +10,11 @@ import TTT.Core.Board as Board (newBoard)
 main :: IO ()
 main = hspec spec
 
-mockReader :: IO String
-mockReader = return "0"
+mockReaderInt :: IO String
+mockReaderInt = return "0"
+
+mockReaderChar :: IO String
+mockReaderChar = return "a"
 
 mockPrinter :: String -> IO ()
 mockPrinter s = return ()
@@ -23,19 +26,29 @@ spec :: Spec
 spec = do
   describe "getInput" $
     it "returns user input" $
-      Prompt.getInput mockReader mockPrinter "" `shouldReturn` "0"
+      Prompt.getInput mockReaderInt mockPrinter "" `shouldReturn` "0"
 
-  describe "getSettings" $ do
+  describe "getSettings" $
     it "returns an Int" $
-      Prompt.getSettings mockReader mockPrinter "" "" (\someInput -> True) `shouldReturn` 0
+      Prompt.getSettings mockReaderInt mockPrinter "" "" (\someInput -> True) `shouldReturn` 0
 
   describe "getSettingsFromOptions" $
     it "returns an Int" $
-      Prompt.getSettingsFromOptions mockReader
+      Prompt.getSettingsFromOptions mockReaderInt
                                     mockPrinter
                                     ""
                                     ""
                                     (\someInput options -> True)
                                     mockOptions
         `shouldReturn` 0
+
+  describe "getMarker" $
+    it "returns a Char" $
+      Prompt.getMarker mockReaderChar
+                       mockPrinter
+                       ""
+                       ""
+                       (\someInput options -> True)
+                       'b'
+        `shouldReturn` 'a'
 

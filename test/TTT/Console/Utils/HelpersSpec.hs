@@ -8,7 +8,7 @@ main :: IO ()
 main = hspec spec
 
 spec :: Spec
-spec = do
+spec =
   describe "isNumber" $ do
     it "is False if input cannot be casted into a number" $
       Helpers.isNumber "foo" `shouldBe` False

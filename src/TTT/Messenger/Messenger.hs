@@ -4,7 +4,6 @@ import TTT.Core.Types
 
 data Messenger = Messenger { chooseANumber :: Board -> String
                            , invalidMove :: String
-                           , currentPlayerIs :: Marker -> String
                            , draw :: String
                            , winner :: Marker -> [Int] -> String
                            , askBoardDimension :: String
@@ -17,5 +16,6 @@ data Messenger = Messenger { chooseANumber :: Board -> String
                            , invalidPlayerRole :: String
                            , initialStateString :: Bool -> String -> String
                            , finalMessage :: Marker -> Bool -> [Int] -> String
+                           , movedTo :: Marker -> Int -> String
                            }
 

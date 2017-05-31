@@ -4,7 +4,7 @@ import Data.Maybe
 import Data.List
 import TTT.Core.Game.GameContext
 
-import TTT.Core.Board as Board (isEmpty, availableSpots)
+import TTT.Core.Board as Board (isEmpty, availableSpots, center)
 import TTT.Core.Players.Computer.Negamax as Negamax (scores)
 
 getSpot :: GameContext -> Int
@@ -13,7 +13,7 @@ getSpot gameContext@ GameContext { board = board
                                  , opponent = opponent
                                  , depth = depth
                                  }
-  | Board.isEmpty board = 0
+  | Board.isEmpty board = Board.center $ length board
   | otherwise = spots !! best
   where
     spots = Board.availableSpots board

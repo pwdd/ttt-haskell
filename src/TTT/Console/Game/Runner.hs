@@ -4,7 +4,7 @@ import TTT.Core.Board as Board (newBoard)
 import TTT.Core.Game.GameContext
 
 import TTT.Console.Game.Loop as Game.Loop (loop)
-import TTT.Console.IO.IO as TTT.IO (reader, printer)
+import TTT.Console.IO.IO as TTT.IO (reader, printer, clearScreen)
 import TTT.Console.IO.IOContext as IOContext
 import TTT.Console.Settings as Settings ( getMessengerNumber
                                         , createMessenger
@@ -35,6 +35,7 @@ play = do
                                    }
   let ioContext = IOContext { IOContext.reader = TTT.IO.reader
                             , IOContext.printer = TTT.IO.printer
+                            , IOContext.clear = TTT.IO.clearScreen
                             , messenger = chosenMessenger
                             }
   Game.Loop.loop ioContext initialContext

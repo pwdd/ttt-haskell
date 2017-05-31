@@ -10,13 +10,21 @@ import TTT.Core.Players.Computer.HardComputer as Computer (getSpot)
 
 import TTT.Messenger.Messenger
 
+import TTT.Console.BoardRepresentation as BoardRepresentation (strBoard)
+import TTT.Console.IO.IO as TTT.IO (clearScreen)
 import TTT.Console.IO.IOContext
 import TTT.Console.IO.Prompt as Prompt (getSettings)
-import TTT.Console.BoardRepresentation as BoardRepresentation (strBoard)
 import TTT.Console.Players.User as User (getSpot)
 
+computerWaitingTime = 1000000
+humanWaitingTime = 0
+
 loop :: IOContext -> GameContext -> IO ()
-loop ioContext@ IOContext { printer = printer, reader = reader, messenger = messenger }
+loop ioContext@ IOContext { printer = printer
+                          , reader = reader
+                          , clear = clear
+                          , messenger = messenger
+                          }
      gameContext@ GameContext { board = board
                               , currentPlayer = currentPlayer
                               , opponent = opponent
@@ -27,6 +35,9 @@ loop ioContext@ IOContext { printer = printer, reader = reader, messenger = mess
 
   spot <- getMove ioContext gameContext
   let nextBoard = Board.placeMarker (spot :: Int) (marker currentPlayer) board
+
+  clearTerminal currentPlayer clear
+  printer $ movedTo messenger (marker currentPlayer) spot
 
   printer $ BoardRepresentation.strBoard nextBoard
 
@@ -47,9 +58,15 @@ firstEmptyBoard printer currentPlayer messenger board
   | otherwise = printer $ initialStateString messenger (Board.isEmpty board)
                                                        (BoardRepresentation.strBoard board)
 
+clearTerminal :: Player -> (Int -> IO ()) -> IO ()
+clearTerminal currentPlayer clearer
+  | isAI currentPlayer = clearer computerWaitingTime
+  | otherwise = clearer humanWaitingTime
+
 getMove :: IOContext -> GameContext -> IO Int
 getMove ioContext@ IOContext { printer = printer
                              , reader = reader
+                             , clear = clear
                              , messenger = messenger
                              }
         gameContext@ GameContext { board = board
